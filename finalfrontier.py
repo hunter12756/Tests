@@ -122,7 +122,7 @@ def main(): #sets up screen
             if event.type == pygame.QUIT:
                 x = False
             elif event.type == pygame.KEYDOWN:
-                enemyspawn(all_sprites_list, orb_group,user)
+                
                 if event.key == pygame.K_w or event.key == pygame.K_UP and user.speed > speedMin:
                     pygame.key.set_repeat(2,1) #prevents superspeed
                     user.speed += 1
@@ -139,6 +139,7 @@ def main(): #sets up screen
                     shootingorb(all_sprites_list, orb_group,user)
             elif event.type == pygame.KEYUP:
                 changingAngle(user)
+                enemyspawn(all_sprites_list, orb_group,user)
         all_sprites_list.update()
         user.rect.clamp_ip(screen_rect)
 
