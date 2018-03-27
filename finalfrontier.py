@@ -6,13 +6,14 @@ import random
 windowW = 800
 windowH = 600
  
-black= (0,0,0)
-white= (255,255,255)
-silver= (192,192,192)
+black = (0,0,0)
+white = (255,255,255)
+silver = (192,192,192)
 maroon = (128,0,0)
 olive = (128,128,0)
-yellow= (219,219,26)
+yellow = (219,219,26)
 lime = (50,205,50)
+red = (245,50,41)
  
 class User(pygame.sprite.Sprite):
     def __init__(self, pos= (250,250)):
@@ -50,6 +51,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.kill()
                 projectile.kill()
                 print("BOOM")
+                
     def update(self):
         self.rect.y += random.randrange(0,3)
         self.rect.x += random.randrange(0,5)
@@ -101,10 +103,9 @@ def changingAngle(user):
 def main(): #sets up screen
     pygame.init()
     pygame.key.set_repeat(500,30)
- 
+    
     screen = pygame.display.set_mode([windowW, windowH])
     screen_rect = screen.get_rect()
- 
     all_sprites_list = pygame.sprite.Group()
     orb_group = pygame.sprite.Group()  # "group" not "list".
     ai_group = pygame.sprite.Group()
@@ -115,10 +116,12 @@ def main(): #sets up screen
     speedMin = -5
  
     clock = pygame.time.Clock()
- 
+   
+    
     x = True
     while x == True:
         clock.tick(60)
+        
         for event in pygame.event.get():
            
             if event.type == pygame.QUIT:
@@ -144,8 +147,11 @@ def main(): #sets up screen
                 enemyspawn(all_sprites_list, ai_group,user)
         all_sprites_list.update()
         user.rect.clamp_ip(screen_rect)
+        
         for ai in ai_group: #calls collision function to check if any collisions have happened
             ai.collision(orb_group,user)
+            
+        
         screen.fill(white)
        
         all_sprites_list.draw(screen)
